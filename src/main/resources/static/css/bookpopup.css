@@ -166,27 +166,10 @@
   
   /*//////////////////////////////////////////////////////////////////
   [ Utility ]*/
-  .txt1 {
-    font-size: 14px;
-    line-height: 1.5;
-    color: #666666;
-  }
-  
-  .txt2 {
-    font-size: 14px;
-    line-height: 1.5;
-    color: #333333;
-    text-transform: uppercase;
-  }
-  
-  .bg1 {background-color: #3b5998}
-  .bg2 {background-color: #1da1f2}
-  .bg3 {background-color: #ea4335}
-  
-  
-  
-  /*//////////////////////////////////////////////////////////////////
-  [ login ]*/
+
+
+/*//////////////////////////////////////////////////////////////////
+[ login ]*/
   .limiter {
     width: 100%;
     margin: 0 auto;
@@ -269,71 +252,9 @@
   
   
   /*---------------------------------------------*/
-  .focus-input100 {
-    position: absolute;
-    display: block;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-  }
-  
-  .focus-input100::after {
-    content: attr(data-symbol);
-    font-family: Material-Design-Iconic-Font;
-    color: #adadad;
-    font-size: 22px;
-  
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    height: calc(100% - 20px);
-    bottom: 0;
-    left: 0;
-    padding-left: 13px;
-    padding-top: 3px;
-  }
-  
-  .focus-input100::before {
-    content: "";
-    display: block;
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: #7f7f7f;
-    -webkit-transition: all 0.4s;
-    -o-transition: all 0.4s;
-    -moz-transition: all 0.4s;
-    transition: all 0.4s;
-  }
-  
-  
-  .input100:focus + .focus-input100::before {
-    width: 100%;
-  }
-  
-  .has-val.input100 + .focus-input100::before {
-    width: 100%;
-  }
-  
-  .input100:focus + .focus-input100::after {
-    color: #a64bf4;
-  }
-  
-  .has-val.input100 + .focus-input100::after {
-    color: #a64bf4;
-  }
-  
-  
-  /*------------------------------------------------------------------
+
+
+/*------------------------------------------------------------------
   [ Button ]*/
   .container-login100-form-btn {
     display: -webkit-box;
@@ -459,29 +380,8 @@
   
   /*//////////////////////////////////////////////////////////////////
   [ Social item ]*/
-  .login100-social-item {
-    font-size: 25px;
-    color: #fff;
-  
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin: 5px;
-  }
-  
-  .login100-social-item:hover {
-    color: #fff;
-    background-color: #333333;
-  }
-  
-  /*//////////////////////////////////////////////////////////////////
+
+/*//////////////////////////////////////////////////////////////////
   [ Responsive ]*/
   
   @media (max-width: 576px) {
