@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/popup.css">
+  <link rel="stylesheet" href="/css/util.css">
+  <script src="/js/functionality.js"></script>
+  <link rel="stylesheet" href="/css/navigation.css">
+  <link rel="stylesheet" href="/css/table.css">
+  <link rel="stylesheet" href="/css/borrowed.css">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <link rel="icon" type="image/png" href="/images/LogoIcon.png"/>
+  <title>Borrowed</title>
+</head>
+<body>
+    <div class="navbar">
+    <!-- Navbar logo -->
+        <div class="nav-header">
+            <div class="nav-logo">
+            <a href="/dashboard">
+                <img src="/images/Logo.png" width="230px" alt="logo">
+            </a>
+            </div>
+        </div>
+        
+        <!-- responsive navbar toggle button -->
+        <input type="checkbox" id="nav-check">
+        <div class="nav-btn">
+            <label for="nav-check">
+            <span></span>
+            <span></span>
+            <span></span>
+            </label>
+        </div>
+        
+        <!-- Navbar items -->
+        <div class="nav-links">
+            <a class="nav-button" href="/dashboard">Dashboard</a>
+            <a class="nav-button" href="/books">Books</a>
+            <a class="nav-button" href="/members">Members and Loans</a>
+            <a class="logout" href="/logout">Logout</a>
+        </div> 
+    </div>
+<!------ Navigation Bar Ends ---------->
+<div class="all-search-container">
+<div class="search-box-container">
+    <p class="box-title">Member Loans</p>    
+    <div class="search-box">
+        <p class="member-details-title">Member ID</p>
+        <p class="member-details" th:text="${member.id}"></p>
+        <p class="member-details-title">Member Name</p>
+        <p class="member-details" th:text="${member.name}"></p>
+    </div>
+    <div th:if="${books.size() < 5}">
+        <button class="search-button add-new" th:attr="onclick='displayLoanItemPopup(\'' + ${member.id}+  '\', \'' + ${member.name} + '\');'">
+            <p class="search-button-text">Loan Book</p>
+        </button>
+    </div>
+    <div th:unless="${books.size() < 5}">
+        <button class="search-button add-new not-allowed" disabled>
+            <p class="search-button-text">Loan Book</p>
+        </button>
+    </div>
+</div>
+</div>
+<!------------------Search Box Ends--------->
+    <div th:if="${success != null && !success}">
+        <div class="error-container">
+            <div class="popup-background">
+            </div>
+            <div class="popup-container error-popup-container">
+                <div class="wrap-login100 p-l-32 p-r-32 p-t-45 p-b-45">
+                <span class="login100-form-title p-b-15">
+                    Invalid Details
+                </span>
+                    <span class="label-input100">Book Unavailable</span>
+                    <div class="container-login100-form-btn p-t-30">
+                        <div class="wrap-login100-form-btn">
+                            <div class="login100-form-bgbtn"></div>
+                            <button class="login100-form-btn" type="reset" onclick="hideErrorPopup()">
+                                OK
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:if="${dateSuccess != null && !dateSuccess}">
+        <div class="date-error-container">
+            <div class="popup-background">
+            </div>
+            <div class="popup-container error-popup-container">
+                <div class="wrap-login100 p-l-32 p-r-32 p-t-45 p-b-45">
+                <span class="login100-form-title p-b-15">
+                    Invalid Details
+                </span>
+                    <span class="label-input100">Return date should be greater than borrow date</span>
+                    <div class="container-login100-form-btn p-t-30">
+                        <div class="wrap-login100-form-btn">
+                            <div class="login100-form-bgbtn"></div>
+                            <button class="login100-form-btn" type="reset" onclick="hideDateErrorPopup()">
+                                OK
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+<!---Error Message Ends --->
+
+<section class="ftco-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 mb-5">
+					<h2 class="heading-section"></h2>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="table-wrap">
+						<table class="table">
+						  <thead class="thead-primary">
+						    <tr>
+						      <th>Book ID</th>
+						      <th>Book Name</th>
+						      <th>Borrow Date</th>
+						      <th>Return Date</th>
+                              <th>Action</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						    <tr th:each="book: ${books}">
+						      <th scope="row" th:text="${book.id}"></th>
+						      <td th:text="${book.name}"></td>
+                              <td th:text="${book.borrowDate}"></td>
+                              <td th:text="${book.returnDate}"></td>
+                              <td><button class="edit-button" th:attr="onclick='displayEditItemPopup(\'' + ${book.id}+  '\');'">Edit</button> <span>|</span> <button class="return-button" th:attr="onclick='displayReturnItemPopup(\'' + ${book.id}+  '\'); calculateFine(\'' + ${book.borrowDate}+  '\', \'' + ${book.returnDate} + '\', \'' + ${book.cost} + '\');'">Return</button></td>
+						    </tr>
+						  </tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+  <div class="new-item-container">
+    <div class="popup-background">
+    </div>
+    <div class="popup-container">
+        <div class="wrap-login100 p-l-32 p-r-32 p-t-45 p-b-45">
+            <form class="login100-form validate-form" th:action="@{'/loanBook/'} + ${member.id}" th:object="${bookToLoan}" method="POST">
+                <span class="login100-form-title p-b-15">
+                    Loan Book
+                </span>
+                <span class="label-input100 p-b-35 enter-credentials">Enter details</span>
+                <div class="wrap-input100 validate-input m-b-35 m-t-35" >
+                    <span class="label-input100">Member ID</span>
+                    <input class="input100 m-t-15" id="memberid-to-loan" type="text" readonly value="">
+                </div>
+                <div class="wrap-input100 validate-input m-b-35 m-t-35" >
+                    <span class="label-input100">Member Name</span>
+                    <input class="input100 m-t-15" id="membername-to-loan"  type="text" readonly>
+                </div>
+                <div class="wrap-input100 validate-input m-b-35 m-t-35" >
+                    <span class="label-input100">Book ID</span>
+                    <input class="input100 m-t-15" type="text" name="type" th:field="*{id}" required>
+                </div>
+                <div class="cancel-or-submit-container">
+                    <div class="container-login100-form-btn p-t-30 cancel-or-submit">
+                        <div class="wrap-login100-form-btn">
+                            <div class="login100-form-bgbtn"></div>
+                            <button class="login100-form-btn" type="reset" onclick="hideNewItemPopup()">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                    <div class="container-login100-form-btn p-t-30 cancel-or-submit">
+                        <div class="wrap-login100-form-btn">
+                            <div class="login100-form-bgbtn"></div>
+                            <button class="login100-form-btn">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+            </form>
+    </div>
+</div>
+</div>
+
+
+<div class="edit-item-container">
+    <div class="popup-background">
+    </div>
+    <div class="popup-container">
+        <div class="wrap-login100 p-l-32 p-r-32 p-t-45 p-b-45">
+            <form class="login100-form validate-form" th:action="@{'/updateLoan/'} + ${member.id}" th:object="${loanToUpdate}" method="POST">
+                <span class="login100-form-title p-b-15">
+                    Edit Loan
+                </span>
+                <span class="label-input100 p-b-35 enter-credentials">Enter details</span>
+                <div class="wrap-input100 validate-input m-b-35 m-t-35" >
+                    <span class="label-input100">Book ID to Edit</span>
+                    <input class="input100 m-t-15" type="text" th:field="*{id}" readonly value="" id="id-to-edit">
+                </div>
+                <div class="wrap-input100 validate-input m-b-35 m-t-35" >
+                    <span class="label-input100">Borrow Date</span>
+                    <input class="input100 m-t-15" type="date" th:field="*{borrowDate}" required>
+                </div>
+                <div class="wrap-input100 validate-input m-b-35 m-t-35" >
+                    <span class="label-input100">Return Date</span>
+                    <input class="input100 m-t-15" type="date" th:field="*{returnDate}" required>
+                </div>
+                <div class="cancel-or-submit-container">
+                    <div class="container-login100-form-btn p-t-30 cancel-or-submit">
+                        <div class="wrap-login100-form-btn">
+                            <div class="login100-form-bgbtn"></div>
+                            <button class="login100-form-btn" type="reset" onclick="hideEditItemPopup()">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                    <div class="container-login100-form-btn p-t-30 cancel-or-submit">
+                        <div class="wrap-login100-form-btn">
+                            <div class="login100-form-bgbtn"></div>
+                            <button class="login100-form-btn">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                </div>          
+            </form>
+    </div>
+</div>
+</div>
+
+<div class="delete-item-container">
+    <div class="popup-background">
+    </div>
+    <div class="delete-popup-container">
+        <div class="wrap-login100 p-l-32 p-r-32 p-t-45 p-b-45">
+            <form class="login100-form validate-form" th:action="@{'/deleteLoan/'} + ${member.id}" th:object="${loanToDelete}" method="POST">
+                <span class="login100-form-title p-b-15">
+                    Return Book
+                </span>
+                <span class="label-input100 p-b-35 enter-credentials">Return Details</span>
+                <div class="wrap-input100 validate-input m-b-35 m-t-35" >
+                    <span class="label-input100">Book ID to Return</span>
+                    <input class="input100 m-t-15" id="id-to-delete" type="text" name="bookid" th:field="*{id}" value="" readonly>
+                </div>
+                <div class="fine-box">
+                    <span class="label-input100" id="fine">Fine: $0.00</span>
+                    <div class="fine-checkbox">
+                        <input type="checkbox" id="fine-checkbox-input">
+                        <label class="damaged-or-lost">Damaged or Lost</label>
+                    </div>
+                </div>
+
+                <div class="cancel-or-submit-container">
+                    <div class="container-login100-form-btn p-t-30 cancel-or-submit">
+                        <div class="wrap-login100-form-btn">
+                            <div class="login100-form-bgbtn"></div>
+                            <button class="login100-form-btn" type="reset" onclick="hideDeleteItemPopup()">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                    <div class="container-login100-form-btn p-t-30 cancel-or-submit">
+                        <div class="wrap-login100-form-btn">
+                            <div class="login100-form-bgbtn"></div>
+                            <button class="login100-form-btn">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                </div>          
+            </form>
+    </div>
+</div>
+</div>
+
+
+
+
+</body>
+</html>

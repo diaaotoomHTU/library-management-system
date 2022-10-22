@@ -1,0 +1,138 @@
+.error-popup-container {
+    margin-top: -130px;
+}
+
+.not-allowed {
+    pointer-events: auto! important;
+    cursor: not-allowed! important;
+}
+
+.damaged-or-lost {
+    padding-top: 6px;
+    padding-left: 6px;
+}
+
+.fine-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.fine-checkbox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+    align-self: center;
+}
+
+.all-search-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 72px;
+}
+
+.search-box-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+    
+}
+
+.box-title {
+    font-size: 35px;
+}
+
+.search-box {
+    width: 880px;
+    height: 250px;
+    background-color: #F6FCFF;
+    border-radius: 15px;
+    margin-top: 46px;
+    display: flex;
+    flex-direction: column;
+}
+
+.member-details-title {
+    font-size: 30px;
+    margin-top: 16px;
+    margin-left: 16px;
+    color: #707070;
+}
+
+.member-details {
+    margin-top: 9px;
+    margin-left: 16px;
+    color: #707070;
+}
+
+.search-components {
+    display: flex;
+    flex-direction: row;
+}
+
+.search-input {
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+    margin-left: 17px;
+    margin-bottom: 18px;
+    color: #707070;
+    margin-right: 82px;
+}
+
+.input-field {
+    border-radius: 15px;
+    border-color:#707070;
+    border-width: 1px;
+}
+
+    
+.search-button {
+    display: flex;
+    justify-content: center;
+    background-color: #FFB627;
+    margin-top: 45px;
+    width: 146px;
+    height: 39px;
+    border-radius: 15px;
+    color: #FFFF;
+    font-size: 20px;
+    border-style: none;
+    text-align: center;
+    align-items: center;
+}
+
+.search-button-text {
+    margin-top: 15px;
+    margin-left: 5px;
+}
+
+.add-new {
+    width: 180px;
+}
+
+
+.borrowed-by-button {
+    text-decoration: underline;
+}
+
+.edit-button {
+    background: none;
+	border: none;
+	padding: 0;
+	font: inherit;
+	outline: inherit;
+    color: #90E0EF;
+}
+
+.return-button {
+    background: none;
+	border: none;
+	padding: 0;
+	font: inherit;
+	outline: inherit;
+    color:#80ED99;
+}
